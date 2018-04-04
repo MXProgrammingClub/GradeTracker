@@ -1,4 +1,4 @@
-package backend;
+package mxcs.gradeTracker.backend;
 
 import java.util.List;
 import java.util.Map;

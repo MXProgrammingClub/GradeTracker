@@ -1,4 +1,4 @@
-package backend;
+package mxcs.gradeTracker.backend;
 
 public class Score {
 	private String category, title,note;
