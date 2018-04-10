@@ -49,7 +49,7 @@ public class MainGUI implements ActionListener
 	private JLabel infoLabel;
 	
 	/**Array of all current classes*/
-	private ArrayList<> classes;
+	//private ArrayList<> classes;
 	
 	/**Dimension of the buttons for the classes*/
 	private Dimension buttonSize;
@@ -190,7 +190,7 @@ public class MainGUI implements ActionListener
 	
 	public Dimension getButtonSize()
 	{
-		
+		return buttonSize;
 	}
 
 
