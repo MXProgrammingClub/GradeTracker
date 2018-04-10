@@ -50,7 +50,8 @@ public class MainGUI implements ActionListener
 	
 	/**Array of all current classes*/
 	//private ArrayList<> classes;
-	
+	//private ArrayList<> classes;
+
 	/**Dimension of the buttons for the classes*/
 	private Dimension buttonSize;
 
