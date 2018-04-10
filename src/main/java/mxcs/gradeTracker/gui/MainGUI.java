@@ -49,7 +49,7 @@ public class MainGUI implements ActionListener
 	private JLabel infoLabel;
 	
 	/**Array of all current classes*/
-	//private ArrayList<> classes;
+	private ArrayList<Integer> classes = new ArrayList<Integer>();
 	
 	/**Dimension of the buttons for the classes*/
 	private Dimension buttonSize;
