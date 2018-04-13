@@ -46,15 +46,26 @@ public class MainGUI implements ActionListener, KeyListener
 
 	/**Change resolution fields*/
 	private JTextField widthField, heightField;
-	
+
 	/**Notification Label*/
 	private JLabel infoLabel;
-	
-	/**Array of all current classes*/
-	private ArrayList<Integer> classes = new ArrayList<Integer>();
+
+	/**Array of all current Boxes that hold classes
+	 * Format: index 0 - JButton for class, index 1 - Horizontal Strut, index 2 - JLabel for grade
+	 */
+	private ArrayList<GUIClass> arrayClasses = new ArrayList<GUIClass>();
 
 	/**Dimension of the buttons for the classes*/
 	private Dimension buttonSize;
+	
+	/**Main organizing Box in the default startup menu*/
+	private Box mainVertical, boxAddClass;
+	
+	/**Main organizing panel for the main JFrame*/
+	private JPanel mainPanel = new JPanel();
+	
+	/**Main notification message*/
+	private JPanel panelInfo = new JPanel();
 
 	/**
 	 * Main Method
@@ -89,97 +100,101 @@ public class MainGUI implements ActionListener, KeyListener
 		menuBar.add(file);
 		frame.setJMenuBar(menuBar);
 
-		//JPanels and layouts for organization
-		JPanel mainPanel = new JPanel();
-
 		//Size of all the buttons
 		buttonSize = new Dimension(200, 30);
 
 		//Class 1
-		JButton class1 = new JButton("Math 50");
-		class1.setSize(buttonSize);
-		class1.setMinimumSize(buttonSize);
-		class1.setMaximumSize(buttonSize);
-		class1.setPreferredSize(buttonSize);
-		class1.repaint();
+		JButton class1Button = new JButton("Math 50");
+		class1Button.setSize(buttonSize);
+		class1Button.setMinimumSize(buttonSize);
+		class1Button.setMaximumSize(buttonSize);
+		class1Button.setPreferredSize(buttonSize);
+		class1Button.repaint();
 		JLabel class1Grade = new JLabel("100.1%");
 
-		Box boxClass1 = Box.createHorizontalBox();
-		boxClass1.add(class1);
-		boxClass1.add(Box.createHorizontalStrut(10));
-		boxClass1.add(class1Grade);
+		GUIClass class1 = new GUIClass(class1Button, class1Grade);
+		arrayClasses.add(class1);
 
 		//Class 2
-		JButton class2 = new JButton("Physics 10");
-		class2.setSize(buttonSize);
-		class2.setMinimumSize(buttonSize);
-		class2.setMaximumSize(buttonSize);
-		class2.setPreferredSize(buttonSize);
-		class2.repaint();
+		JButton class2Button = new JButton("Physics 10");
+		class2Button.setSize(buttonSize);
+		class2Button.setMinimumSize(buttonSize);
+		class2Button.setMaximumSize(buttonSize);
+		class2Button.setPreferredSize(buttonSize);
+		class2Button.repaint();
 		JLabel class2Grade = new JLabel("99.96%");
 
-		Box boxClass2 = Box.createHorizontalBox();
-		boxClass2.add(class2);
-		boxClass2.add(Box.createHorizontalStrut(10));
-		boxClass2.add(class2Grade);
+		GUIClass class2 = new GUIClass(class2Button, class2Grade);
+		arrayClasses.add(class2);
 
 		//Class 3
-		JButton class3 = new JButton("Spanish 12");
-		class3.setSize(buttonSize);
-		class3.setMinimumSize(buttonSize);
-		class3.setMaximumSize(buttonSize);
-		class3.setPreferredSize(buttonSize);
-		class3.repaint();
+		JButton class3Button = new JButton("Spanish 12");
+		class3Button.setSize(buttonSize);
+		class3Button.setMinimumSize(buttonSize);
+		class3Button.setMaximumSize(buttonSize);
+		class3Button.setPreferredSize(buttonSize);
+		class3Button.repaint();
 		JLabel class3Grade = new JLabel("60.00%");
 
-		Box boxClass3 = Box.createHorizontalBox();
-		boxClass3.add(class3);
-		boxClass3.add(Box.createHorizontalStrut(10));
-		boxClass3.add(class3Grade);
-
+		GUIClass class3 = new GUIClass(class3Button, class3Grade);
+		arrayClasses.add(class3);
+		
 		//Add Class
 		buttonAddClass = new JButton("+");
 		buttonAddClass.addActionListener(this);
 		JLabel addClassDesc = new JLabel("Add Class");
 
-		Box boxAddClass = Box.createHorizontalBox();
+		boxAddClass = Box.createHorizontalBox();
 		boxAddClass.add(buttonAddClass);
 		boxAddClass.add(Box.createHorizontalStrut(10));
 		boxAddClass.add(addClassDesc);
 		boxAddClass.add(Box.createHorizontalStrut(130));
 
-		//Welcome Message
-		JPanel panelInfo = new JPanel();
 		infoLabel = new JLabel("Welcome!");
 		panelInfo.add(infoLabel);
-		
-		
-		
+
+
+
 
 		//Main Organizing Box
-		Box mainVertical = Box.createVerticalBox();
-		mainVertical.add(panelInfo);
-		mainVertical.add(Box.createVerticalStrut(40));
-		mainVertical.add(boxClass1);
-		mainVertical.add(boxClass2);
-		mainVertical.add(boxClass3);
-		mainVertical.add(Box.createVerticalStrut(60));
-		mainVertical.add(boxAddClass);
+		mainVertical = Box.createVerticalBox();
+		
 
+		
 		mainPanel.add(mainVertical);
-
 		frame.add(mainPanel);
 		frame.setVisible(true);
+		
+		updateUI();
 	}
 
 	/**
 	 * Updates the Graphical Interface of the program
 	 */
-	private void updateUI()
+	public void updateUI()
 	{
-		//TODO: CALCULATE DIMENSION USED BY CLASSTYPE
+		System.out.println("updateGUI Called");
+		
+		mainVertical = Box.createHorizontalBox();
+		mainVertical.add(panelInfo);
+		mainVertical.add(Box.createVerticalStrut(40)); //TODO MAKE VARIABLE THAT CHANGES WITH RES
+		for (GUIClass c : arrayClasses)
+		{
+			c.setButtonSize(buttonSize); //TODO MAKE VARIABLE THAT CHANGES WITH RES
+			mainVertical.add(c.getBox(10)); //TODO MAKE VARIABLE THAT CHANGES WITH RES
+		}
+		mainVertical.add(Box.createVerticalStrut(60)); //TODO MAKE VARIABLE THAT CHANGES WITH RES
+		mainVertical.add(boxAddClass);
+		mainVertical.repaint();
+		mainVertical.revalidate();
+		mainPanel.repaint();
+		mainPanel.revalidate();
+		
+		//TODO: CALCULATE DIMENSION
 		frame.setSize(curWidth, curHeight);
 		frame.repaint();
+		frame.revalidate();
+
 	}
 
 	/**
@@ -189,7 +204,7 @@ public class MainGUI implements ActionListener, KeyListener
 	{
 		return frame;
 	}
-	
+
 	public Dimension getButtonSize()
 	{
 		return buttonSize;
@@ -295,7 +310,7 @@ public class MainGUI implements ActionListener, KeyListener
 
 		else if (src == buttonAddClass)
 			infoLabel.setText("Something Happened");
-		
+
 
 		else if (src == buttonDefaultRes)
 		{
@@ -324,18 +339,18 @@ public class MainGUI implements ActionListener, KeyListener
 	 */
 	public void keyPressed(KeyEvent e) 
 	{
-		
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) 
 	{
-		
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) 
 	{
-		
+
 	}
 }
