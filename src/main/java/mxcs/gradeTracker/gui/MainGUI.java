@@ -159,13 +159,27 @@ public class MainGUI implements ActionListener, KeyListener
 		//Main Organizing Box
 		mainVertical = Box.createVerticalBox();
 		
-
+		mainVertical = Box.createHorizontalBox();
+		mainVertical.add(panelInfo);
+		mainVertical.add(Box.createVerticalStrut(40)); //TODO MAKE VARIABLE THAT CHANGES WITH RES
+		for (GUIClass c : arrayClasses)
+		{
+			c.setButtonSize(buttonSize); //TODO MAKE VARIABLE THAT CHANGES WITH RES
+			mainVertical.add(c.getPanel(10)); //TODO MAKE VARIABLE THAT CHANGES WITH RES
+			
+		}
+		mainVertical.add(Box.createVerticalStrut(60)); //TODO MAKE VARIABLE THAT CHANGES WITH RES
+		mainVertical.add(boxAddClass);
+		mainVertical.repaint();
+		mainVertical.revalidate();
+		mainPanel.repaint();
+		mainPanel.revalidate();
 		
 		mainPanel.add(mainVertical);
 		frame.add(mainPanel);
 		frame.setVisible(true);
 		
-		updateUI();
+//		updateUI();
 	}
 
 	/**
@@ -175,20 +189,7 @@ public class MainGUI implements ActionListener, KeyListener
 	{
 		System.out.println("updateGUI Called");
 		
-		mainVertical = Box.createHorizontalBox();
-		mainVertical.add(panelInfo);
-		mainVertical.add(Box.createVerticalStrut(40)); //TODO MAKE VARIABLE THAT CHANGES WITH RES
-		for (GUIClass c : arrayClasses)
-		{
-			c.setButtonSize(buttonSize); //TODO MAKE VARIABLE THAT CHANGES WITH RES
-			mainVertical.add(c.getBox(10)); //TODO MAKE VARIABLE THAT CHANGES WITH RES
-		}
-		mainVertical.add(Box.createVerticalStrut(60)); //TODO MAKE VARIABLE THAT CHANGES WITH RES
-		mainVertical.add(boxAddClass);
-		mainVertical.repaint();
-		mainVertical.revalidate();
-		mainPanel.repaint();
-		mainPanel.revalidate();
+		//TODO HERE
 		
 		//TODO: CALCULATE DIMENSION
 		frame.setSize(curWidth, curHeight);

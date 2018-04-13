@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * This class represents a school class for the GUI, containing the JButton and JLabel associated with it
@@ -72,14 +73,19 @@ public class GUIClass {
 	}
 	
 	/**
-	 * @return The javax.swing.Box representation of this class object --> can be directly inserted in to mainVertical
+	 * @param strutLength The length of the strut that separates the JButton and the JLabel
+	 * @return A JPanel holding a singular javax.swing.HorizontalBox component that represents this class object --> can be directly inserted in to mainVertical
 	 */
-	public Box getBox(int strutLength)
-	{
+	public JPanel getPanel(int strutLength)
+	{		
 		Box resultant = Box.createHorizontalBox();
 		resultant.add(button);
 		resultant.add(Box.createHorizontalStrut(strutLength));
 		resultant.add(grade);
-		return resultant;
+		
+		JPanel toReturn = new JPanel();
+		toReturn.add(resultant);
+		
+		return toReturn;
 	}
 }
