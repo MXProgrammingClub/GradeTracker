@@ -3,6 +3,8 @@ package mxcs.gradeTracker.gui;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -20,7 +22,7 @@ import javax.swing.JTextField;
  * @author Kevin
  *
  */
-public class MainGUI implements ActionListener
+public class MainGUI implements ActionListener, KeyListener
 {
 	/**Main JFrame*/
 	private JFrame frame;
@@ -34,7 +36,7 @@ public class MainGUI implements ActionListener
 	/**Main JMenuBar*/
 	private JMenuBar menuBar;
 	private JMenu file;
-	private JMenuItem reallyCoolFeature1, reallyCoolFeature2;
+	private JMenuItem reallyCoolFeature1, buttonChangeRes;
 
 	/**Add Class Button*/
 	private JButton buttonAddClass, buttonSetRes, buttonDefaultRes;
@@ -50,9 +52,6 @@ public class MainGUI implements ActionListener
 	
 	/**Array of all current classes*/
 	private ArrayList<Integer> classes = new ArrayList<Integer>();
-	
-	//private ArrayList<> classes;
-	//private ArrayList<> classes;
 
 	/**Dimension of the buttons for the classes*/
 	private Dimension buttonSize;
@@ -82,11 +81,11 @@ public class MainGUI implements ActionListener
 		file = new JMenu("File");
 		reallyCoolFeature1 = new JMenuItem("reallyCoolFeature1");
 		reallyCoolFeature1.addActionListener(this);
-		reallyCoolFeature2 = new JMenuItem("reallyCoolFeature2");
-		reallyCoolFeature2.addActionListener(this);
+		buttonChangeRes = new JMenuItem("Change Resolution");
+		buttonChangeRes.addActionListener(this);
 
 		file.add(reallyCoolFeature1);
-		file.add(reallyCoolFeature2);
+		file.add(buttonChangeRes);
 		menuBar.add(file);
 		frame.setJMenuBar(menuBar);
 
@@ -275,6 +274,7 @@ public class MainGUI implements ActionListener
 		vertBox.add(setResPanel);
 		vertBox.add(defaultResPanel);
 
+		frameRes.getRootPane().setDefaultButton(buttonSetRes);
 		frameRes.add(vertBox);
 
 
@@ -290,11 +290,12 @@ public class MainGUI implements ActionListener
 		if (src == reallyCoolFeature1)
 			System.out.println("You are cool");
 
-		else if (src == reallyCoolFeature2)
+		else if (src == buttonChangeRes)
 			promptUserChangeResolution();
 
 		else if (src == buttonAddClass)
 			infoLabel.setText("Something Happened");
+		
 
 		else if (src == buttonDefaultRes)
 		{
@@ -316,5 +317,25 @@ public class MainGUI implements ActionListener
 
 			updateUI();
 		}
+	}
+
+	/**
+	 * Process user key presses
+	 */
+	public void keyPressed(KeyEvent e) 
+	{
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) 
+	{
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) 
+	{
+		
 	}
 }
