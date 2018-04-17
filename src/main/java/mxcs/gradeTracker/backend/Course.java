@@ -16,8 +16,22 @@ public class Course {		//Represents a course
 		this.weights = weights;
 		this.points = points;
 		scores = new LinkedList<Score>();
-		
+		normalizeWeights();
 	}
+	
+	private void normalizeWeights() {		//If user enters less than 100% of grades, expand rest to 100%
+		double totWeight=0;
+		for(Double weight:weights.values()){
+			totWeight+=weight;
+		}
+		if(totWeight!=1.0){
+			totWeight = 1/totWeight;
+			for(String cat:weights.keySet()){
+				weights.put(cat, weights.get(cat)*totWeight);
+			}
+		}
+	}
+
 	public void examScore(double score){
 		examScore=score;
 	}
