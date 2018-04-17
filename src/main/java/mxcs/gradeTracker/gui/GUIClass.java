@@ -76,16 +76,18 @@ public class GUIClass {
 	 * @param strutLength The length of the strut that separates the JButton and the JLabel
 	 * @return A JPanel holding a singular javax.swing.HorizontalBox component that represents this class object --> can be directly inserted in to mainVertical
 	 */
-	public JPanel getPanel(int strutLength)
+	public Box getBox(int strutLength)
 	{		
 		Box resultant = Box.createHorizontalBox();
 		resultant.add(button);
 		resultant.add(Box.createHorizontalStrut(strutLength));
 		resultant.add(grade);
 		
-		JPanel toReturn = new JPanel();
-		toReturn.add(resultant);
+		return resultant;
 		
-		return toReturn;
+//		JPanel toReturn = new JPanel();
+//		toReturn.add(resultant);
+//		
+//		return toReturn;
 	}
 }
