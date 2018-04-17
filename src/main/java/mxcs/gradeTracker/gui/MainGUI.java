@@ -57,13 +57,13 @@ public class MainGUI implements ActionListener, KeyListener
 
 	/**Dimension of the buttons for the classes*/
 	private Dimension buttonSize;
-	
+
 	/**Main organizing Box in the default startup menu*/
 	private Box mainVertical, boxAddClass;
-	
+
 	/**Main organizing panel for the main JFrame*/
 	private JPanel mainPanel = new JPanel();
-	
+
 	/**Main notification message*/
 	private JPanel panelInfo = new JPanel();
 
@@ -72,7 +72,11 @@ public class MainGUI implements ActionListener, KeyListener
 	 */
 	public static void main(String[] args)
 	{
-		new MainGUI();
+		MainGUI yay1 = new MainGUI();
+		yay1.updateUI();
+		yay1.removeClass("Math 50f");
+		yay1.updateUI();
+		//		yay1.updateUI();
 	}
 
 	/**
@@ -138,7 +142,7 @@ public class MainGUI implements ActionListener, KeyListener
 
 		GUIClass class3 = new GUIClass(class3Button, class3Grade);
 		arrayClasses.add(class3);
-		
+
 		//Add Class
 		buttonAddClass = new JButton("+");
 		buttonAddClass.addActionListener(this);
@@ -155,17 +159,19 @@ public class MainGUI implements ActionListener, KeyListener
 
 
 
-
 		//Main Organizing Box
 		mainVertical = Box.createVerticalBox();
-		
+
+		//TODO HERE
+		mainVertical = Box.createVerticalBox();
+
 		mainVertical.add(panelInfo);
 		mainVertical.add(Box.createVerticalStrut(40)); //TODO MAKE VARIABLE THAT CHANGES WITH RES
 		for (GUIClass c : arrayClasses)
 		{
 			c.setButtonSize(buttonSize); //TODO MAKE VARIABLE THAT CHANGES WITH RES
 			mainVertical.add(c.getBox(10)); //TODO MAKE VARIABLE THAT CHANGES WITH RES
-			
+
 		}
 		mainVertical.add(Box.createVerticalStrut(60)); //TODO MAKE VARIABLE THAT CHANGES WITH RES
 		mainVertical.add(boxAddClass);
@@ -173,12 +179,11 @@ public class MainGUI implements ActionListener, KeyListener
 		mainVertical.revalidate();
 		mainPanel.repaint();
 		mainPanel.revalidate();
-		
+
 		mainPanel.add(mainVertical);
 		frame.add(mainPanel);
 		frame.setVisible(true);
-		
-//		updateUI();
+
 	}
 
 	/**
@@ -187,9 +192,11 @@ public class MainGUI implements ActionListener, KeyListener
 	public void updateUI()
 	{
 		System.out.println("updateGUI Called");
-		
-		//TODO HERE
-		
+
+		mainVertical.remove(0);
+
+
+
 		//TODO: CALCULATE DIMENSION
 		frame.setSize(curWidth, curHeight);
 		frame.repaint();
@@ -205,11 +212,31 @@ public class MainGUI implements ActionListener, KeyListener
 		return frame;
 	}
 
+	/**
+	 * @return the standard buttonSize of all the class JButtons
+	 */
 	public Dimension getButtonSize()
 	{
 		return buttonSize;
 	}
 
+	/**
+	 * Removes a given class from arrayClasses, based on the name displayed on the JButton
+	 * @param clas5
+	 */
+	private void removeClass(String clas5)
+	{
+		int index = 0;
+		for (int i = 0; i < arrayClasses.size(); i ++)
+			if(arrayClasses.get(i).getClassName().equals(clas5))
+			{
+				System.out.println("Class found :D");
+				index = i;
+				break;
+			}
+
+		arrayClasses.remove(index);
+	}
 
 	/**
 	 * Private helper method that is called when the user wants to change the resolution

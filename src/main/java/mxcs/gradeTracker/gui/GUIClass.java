@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
  * This class represents a school class for the GUI, containing the JButton and JLabel associated with it
@@ -89,5 +88,10 @@ public class GUIClass {
 //		toReturn.add(resultant);
 //		
 //		return toReturn;
+	}
+	
+	public String getClassName()
+	{
+		return this.button.getText();
 	}
 }
