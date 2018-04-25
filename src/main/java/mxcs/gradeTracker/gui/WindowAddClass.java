@@ -174,6 +174,7 @@ public class WindowAddClass extends JFrame implements ActionListener
 		else if (source.equals(buttonComplete))
 		{
 			System.out.println("User thinks he is better than me D:");
+			this.showError();
 		}
 	}
 }
