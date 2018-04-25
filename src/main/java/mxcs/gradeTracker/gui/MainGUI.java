@@ -31,7 +31,7 @@ public class MainGUI implements ActionListener, KeyListener
 	private static final int DEFAULTWIDTH = 400, DEFAULTHEIGHT = 400;
 
 	/**The Current Width and Height of all Windows*/
-	private int curWidth, curHeight;
+	public static int curWidth, curHeight;
 
 	/**Main JMenuBar*/
 	private JMenuBar menuBar;
@@ -73,10 +73,12 @@ public class MainGUI implements ActionListener, KeyListener
 	public static void main(String[] args)
 	{
 		MainGUI yay1 = new MainGUI();
-		yay1.updateUI();
-		yay1.removeClass("Math 50f");
-		yay1.updateUI();
+//		yay1.updateUI();
+//		yay1.removeClass("Math 50f");
+//		yay1.updateUI();
 		//		yay1.updateUI();
+		
+		WindowAddClass newWindow = new WindowAddClass();
 	}
 
 	/**
