@@ -77,8 +77,6 @@ public class MainGUI implements ActionListener, KeyListener
 //		yay1.removeClass("Math 50f");
 //		yay1.updateUI();
 		//		yay1.updateUI();
-		
-		WindowAddClass newWindow = new WindowAddClass();
 	}
 
 	/**
@@ -338,7 +336,12 @@ public class MainGUI implements ActionListener, KeyListener
 			promptUserChangeResolution();
 
 		else if (src == buttonAddClass)
-			infoLabel.setText("Something Happened");
+		{
+			if (!WindowAddClass.exists)
+			{
+				new WindowAddClass();
+			}
+		}
 
 
 		else if (src == buttonDefaultRes)

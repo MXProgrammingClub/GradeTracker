@@ -30,6 +30,9 @@ public class WindowAddClass extends JFrame implements ActionListener
 
 	/**Button that tells the program that the user has entered everything*/
 	private JButton buttonComplete;
+	
+	/**Whether or not an instance of this class exists*/
+	public static boolean exists = false;
 
 	/**
 	 * Instantiates a WindowAddClass JFrame
@@ -38,8 +41,18 @@ public class WindowAddClass extends JFrame implements ActionListener
 	{	
 		super("Add a Class");
 		System.out.println("New WindowAddClass instantiated");
+		exists = true;
 		this.setSize(MainGUI.curWidth, MainGUI.curHeight);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		JFrame frame = this;
+		this.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		        exists = false;
+		        frame.dispose();
+		    }
+		});
 
 
 		//3 Horizontal Boxes
@@ -107,7 +120,6 @@ public class WindowAddClass extends JFrame implements ActionListener
 		Box box3 = Box.createHorizontalBox();
 		box3.add(panelButtonAddCategory);
 		box3.add(panelButtonComplete);
-
 
 
 		//Final GUI and JFrame stuff :D
