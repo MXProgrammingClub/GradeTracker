@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
-import com.sun.webkit.ThemeClient;
-
+import mxcs.gradeTracker.backend.Student;
 import mxcs.gradeTracker.reference.Settings;
 
 /**
@@ -59,7 +57,7 @@ public class IOManager {
 			loadFile();
 			decode();
 		} else {
-			student = new Student();
+			student = new Student("");
 			saveStudent();
 		}
 		return student;
