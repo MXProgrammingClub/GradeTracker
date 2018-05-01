@@ -25,7 +25,7 @@ import javax.swing.JTextField;
 public class MainGUI implements ActionListener, KeyListener
 {
 	/**Main JFrame*/
-	private JFrame frame;
+	private static JFrame frame;
 
 	/**Constants that track the default width and height of the Main GUI*/
 	private static final int DEFAULTWIDTH = 400, DEFAULTHEIGHT = 400;
@@ -59,7 +59,9 @@ public class MainGUI implements ActionListener, KeyListener
 	private Dimension buttonSize;
 
 	/**Main organizing Box in the default startup menu*/
-	private Box mainVertical, boxAddClass;
+	private static Box mainVertical;
+
+	private Box boxAddClass;
 
 	/**Main organizing panel for the main JFrame*/
 	private JPanel mainPanel = new JPanel();
@@ -189,11 +191,13 @@ public class MainGUI implements ActionListener, KeyListener
 	/**
 	 * Updates the Graphical Interface of the program
 	 */
-	public void updateUI()
+	public static void updateUI()
 	{
 		System.out.println("updateGUI Called");
-
-		mainVertical.remove(0);
+//		mainVertical.removeAll();
+//		mainVertical.
+		
+//		frame.getContentPane().removeAll();
 
 
 
@@ -330,7 +334,7 @@ public class MainGUI implements ActionListener, KeyListener
 		Object src = e.getSource();
 
 		if (src == reallyCoolFeature1)
-			System.out.println("You are cool");
+			MainGUI.updateUI();
 
 		else if (src == buttonChangeRes)
 			promptUserChangeResolution();
@@ -365,13 +369,25 @@ public class MainGUI implements ActionListener, KeyListener
 			updateUI();
 		}
 	}
+	
+	private static void newClassOptionsWindow()
+	{
+		JFrame temp = new JFrame();
+		temp.setSize(DEFAULTWIDTH/2, DEFAULTHEIGHT/2);
+		Box mainHorizontal = Box.createHorizontalBox();
+		JPanel mainPanel = new JPanel();
+
+		
+		
+		
+	}
 
 	/**
 	 * Process user key presses
 	 */
 	public void keyPressed(KeyEvent e) 
 	{
-
+		
 	}
 
 	@Override
