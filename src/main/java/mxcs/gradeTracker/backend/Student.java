@@ -5,8 +5,16 @@ public class Student {
 	public Student(String name){
 		this.name = name;
 	}
-	public addCourse(String name)
-	public getCourse(String name)
-	public removeCourse(String name)
-	public gradeSummary()
+	public void addCourse(String name) {
+		
+	}
+	public void getCourse(String name) {
+		
+	}
+	public void removeCourse(String name) {
+		
+	}
+	public void gradeSummary() {
+		
+	}
 }
