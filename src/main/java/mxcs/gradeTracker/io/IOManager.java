@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import mxcs.gradeTracker.backend.Student;
+import mxcs.gradeTracker.reference.Reference;
 import mxcs.gradeTracker.reference.Settings;
 
 /**
@@ -16,7 +17,8 @@ import mxcs.gradeTracker.reference.Settings;
 public class IOManager {
 	
 	/**
-	 * The path to the data file. @see Settings
+	 * The path to the data file.
+	 * @see Settings
 	 */
 	private Path path;
 	
@@ -42,6 +44,8 @@ public class IOManager {
 	 * @param password a password for encryption - must be at most 16 bytes (ASCII characters)
 	 */
 	public IOManager() {
+		try {Files.createDirectories(Paths.get(Settings.getDataDirectory()));}
+		catch (IOException e) {e.printStackTrace();}
 		this.path = Paths.get(Settings.getDataPath());
 	}
 	
@@ -57,7 +61,7 @@ public class IOManager {
 			loadFile();
 			decode();
 		} else {
-			student = new Student("");
+			student = new Student();
 			saveStudent();
 		}
 		return student;
@@ -107,7 +111,11 @@ public class IOManager {
 	 * Encodes {@code student} into a {@code byte[]} and saves it as the {@code data}.
 	 */
 	private void encode() {
+		String header = "<mxgt version=\"" + Reference.IO_VERSION + "\">\n";
+		
 		//TODO encoding
+		
+		data = header.getBytes();
 	}
 	
 }
