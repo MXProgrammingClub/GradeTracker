@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import mxcs.gradeTracker.backend.Student;
-import mxcs.gradeTracker.reference.Reference;
+import mxcs.gradeTracker.reference.IOConstants;
 import mxcs.gradeTracker.reference.Settings;
 
 /**
@@ -111,7 +111,7 @@ public class IOManager {
 	 * Encodes {@code student} into a {@code byte[]} and saves it as the {@code data}.
 	 */
 	private void encode() {
-		String header = "<mxgt version=\"" + Reference.IO_VERSION + "\">\n";
+		String header = IOConstants.DATA_HEADER;
 		
 		//TODO encoding
 		
