@@ -3,6 +3,7 @@ package mxcs.gradeTracker;
 import java.io.IOException;
 
 import mxcs.gradeTracker.io.IOManager;
+import mxcs.gradeTracker.reference.IOConstants;
 
 /**
  * The main class for the Grade Tracker.
@@ -12,6 +13,7 @@ import mxcs.gradeTracker.io.IOManager;
 public class GradeTracker {
 	
 	public static void main(String[] args) {
+		IOConstants.init();
 		
 		IOManager manager = new IOManager();
 		try {
