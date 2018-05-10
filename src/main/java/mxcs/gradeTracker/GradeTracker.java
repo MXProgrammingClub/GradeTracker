@@ -20,7 +20,6 @@ public class GradeTracker {
 			manager.loadStudent();
 			manager.saveStudent();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

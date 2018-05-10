@@ -4,14 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.naming.OperationNotSupportedException;
 
 import mxcs.gradeTracker.backend.Student;
-import mxcs.gradeTracker.reference.IOConstants;
 import mxcs.gradeTracker.reference.Settings;
 
 /**
@@ -26,21 +20,22 @@ public class IOManager {
 	 * @see Settings
 	 */
 	private Path path;
-	
 	/**
-	 * The Student object which is loaded from and saved to the file.
+	 * The {@code Student} object which is loaded from and saved to the file.
 	 */
 	private Student student;
-	
 	/**
 	 * The raw data which is loaded from and saved to the file.
 	 */
 	private byte[] data;
-	
 	/**
-	 * The user's password for encryption.
+	 * The {@code Decoder} for decoding the loaded data into an {@code Student} object.
 	 */
-	private String password;
+	private Decoder decoder;
+	/**
+	 * The {@code Encoder} for encoding the {@code Student} object's data in order to be saved.
+	 */
+	private Encoder encoder;
 	
 	/**
 	 * Instantiates an {@code IOManger} with a given password.
@@ -52,6 +47,8 @@ public class IOManager {
 		try {Files.createDirectories(Paths.get(Settings.getDataDirectory()));}
 		catch (IOException e) {e.printStackTrace();}
 		this.path = Paths.get(Settings.getDataPath());
+		decoder = new Decoder();
+		encoder = new Encoder();
 	}
 	
 	/**
@@ -64,7 +61,7 @@ public class IOManager {
 	public Student loadStudent() throws IOException {
 		if(Files.exists(path)) {
 			loadFile();
-			decode();
+			student = decoder.decode(data);
 		} else {
 			student = new Student();
 			saveStudent();
@@ -79,7 +76,7 @@ public class IOManager {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public boolean saveStudent() throws IOException {
-		encode();
+		data = encoder.encode(student);
 		return saveFile();
 	}
 	
@@ -103,62 +100,6 @@ public class IOManager {
 	private boolean saveFile() throws IOException {
 		Files.write(path, data);
 		return true;
-	}
-	
-	/**
-	 * Decodes {@code data} into a {@code Student} object and saves it as {@code student}.
-	 */
-	private void decode() {
-		//TODO decoding
-	}
-	
-	/**
-	 * Encodes {@code student} into a {@code byte[]} and saves it as the {@code data}.
-	 */
-	private void encode() {
-		String header = IOConstants.DATA_HEADER;
-		
-		int length = header.getBytes().length;
-		List<byte[]> data = new ArrayList<byte[]>(Arrays.asList(header.getBytes()));
-		
-		//TODO encoding
-		length += addData(data, "test");
-		
-		this.data = new byte[length];
-		int i = 0;
-		for(byte[] bytes : data)
-			for(byte b : bytes)
-				this.data[i++] = b;
-	}
-	
-	private int addData(List<byte[]> data, Object o) {
-		byte[] bytes = encode(o);
-		data.add(bytes);
-		return bytes.length;
-	}
-	
-	private byte[] encode(Object o) {
-		byte type = 0;
-		byte[] value = null;
-		try {
-			type = IOConstants.getCode(o.getClass());
-			value = toBytes(o);
-		} catch (OperationNotSupportedException e) {e.printStackTrace();}
-		byte[] data = new byte[value.length + 5];
-		data[0] = type;
-		data[1] = (byte)(value.length >> 12);
-		data[2] = (byte)(value.length >> 8);
-		data[3] = (byte)(value.length >> 4);
-		data[4] = (byte)(value.length);
-		for(int i = 0; i < value.length; i++)
-			data[i + 5] = value[i];
-		return data;
-	}
-	
-	private byte[] toBytes(Object o) throws OperationNotSupportedException {
-		if(o instanceof String)
-			return ((String) o).getBytes();
-		throw new OperationNotSupportedException("Invalid Type: " + o.getClass());
 	}
 	
 }

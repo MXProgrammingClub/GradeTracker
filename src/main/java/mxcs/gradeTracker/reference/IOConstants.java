@@ -5,8 +5,6 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.naming.OperationNotSupportedException;
-
 import mxcs.gradeTracker.backend.*;
 
 /**
@@ -16,11 +14,22 @@ import mxcs.gradeTracker.backend.*;
  */
 public class IOConstants {
 	
+	/**
+	 * The version of the data file.
+	 */
 	public static final String DATA_VERSION = "0.0";
+	/**
+	 * The header for the data file.
+	 */
 	public static final String DATA_HEADER = "mxgt version=\"" + DATA_VERSION + "\"\n";
-	
+	/**
+	 * The byte codes for each supported type.
+	 */
 	private static final Map<Type, Byte> TYPE_CODES = new TreeMap<Type, Byte>(new Comparator<Type>() {public int compare(Type o1, Type o2) {return o1.getTypeName().compareTo(o2.getTypeName());}});
 	
+	/**
+	 * Initializes the {@code TYPE_CODES} Map.
+	 */
 	public static void init() {
 		TYPE_CODES.put(boolean.class,	(byte)0x01b);
 		TYPE_CODES.put(byte.class,		(byte)0x02b);
@@ -36,9 +45,17 @@ public class IOConstants {
 		TYPE_CODES.put(Student.class,	(byte)0x0Cb);
 	}
 	
-	public static byte getCode(Type t) throws OperationNotSupportedException {
+	/**
+	 * Retrieves the {@code byte} code for a particular type.
+	 * Only particular types are supported 
+	 * 
+	 * @param t the type
+	 * @return the byte which is used to encode the specified type
+	 * @throws UnsupportedOperationException if the type is not supported
+	 */
+	public static byte getCode(Type t) throws UnsupportedOperationException {
 		if(!TYPE_CODES.containsKey(t))
-			throw new OperationNotSupportedException("Invalid Type: " + t);
+			throw new UnsupportedOperationException("Invalid Type: " + t);
 		return TYPE_CODES.get(t);
 	}
 	
