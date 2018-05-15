@@ -194,12 +194,6 @@ public class MainGUI implements ActionListener, KeyListener
 	public static void updateUI()
 	{
 		System.out.println("updateGUI Called");
-//		mainVertical.removeAll();
-//		mainVertical.
-		
-//		frame.getContentPane().removeAll();
-
-
 
 		//TODO: CALCULATE DIMENSION
 		frame.setSize(curWidth, curHeight);
