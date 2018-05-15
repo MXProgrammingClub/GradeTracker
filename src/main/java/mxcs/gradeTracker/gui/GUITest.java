@@ -12,6 +12,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
@@ -20,19 +23,32 @@ public class GUITest extends JFrame implements ActionListener{
 	private static JFrame frame;
 	private static JPanel titlePanel, classPanel, buttonPanel;
 	private static JLabel title; 
-	private static Font titleFont = new Font("Dialog", Font.BOLD, 20);
-	private static Font buttonFont = new Font("Dialog", Font.ITALIC, 16);
-	private static Font classFont = new Font("Dialog", Font.BOLD, 16);
-	private static Font gradeFont = new Font("Dialog", Font.BOLD, 16);
+	private static final Font titleFont = new Font("Dialog", Font.BOLD, 20);
+	private static final Font buttonFont = new Font("Dialog", Font.ITALIC, 16);
+	private static final Font classFont = new Font("Dialog", Font.BOLD, 16);
+	private static final Font gradeFont = new Font("Dialog", Font.BOLD, 16);
 	private static JButton addClassButton;
 	private static ArrayList<GUIClass> classes = new ArrayList<GUIClass>();
 	private static Dimension classButtonSize = new Dimension(200, 40);
+	private static JMenuBar menuBar;
+	private static JMenu menuFile;
+	private static JMenuItem itemExit;
 
 	public GUITest()
 	{
 		super("Grade Tracker");
 		frame = this;
 
+		menuBar = new JMenuBar();
+		itemExit = new JMenuItem("Exit");
+		menuFile = new JMenu("File");
+		menuFile.add(itemExit);
+		itemExit.addActionListener(this);
+		
+		menuBar.add(menuFile);
+		
+		frame.setJMenuBar(menuBar);
+		
 		titlePanel = new JPanel();
 		titlePanel.setBackground(Color.red);
 
@@ -100,9 +116,11 @@ public class GUITest extends JFrame implements ActionListener{
 	private static void displayClasses()
 	{
 		classPanel.removeAll();
-		for(GUIClass c: classes)
+		for(int i = 0; i < classes.size(); i ++)
 		{
-			classPanel.add(c.getBox(20));
+			if (i == 0)
+				classPanel.add(Box.createVerticalGlue());
+			classPanel.add(classes.get(i).getBox());
 			classPanel.add(Box.createVerticalGlue());
 		}
 		
@@ -130,6 +148,11 @@ public class GUITest extends JFrame implements ActionListener{
 		if (src.equals(addClassButton))
 		{
 			System.out.println("Add class button clicked.");
+		}
+		
+		else if (src.equals(itemExit))
+		{
+			System.exit(0);
 		}
 	}
 

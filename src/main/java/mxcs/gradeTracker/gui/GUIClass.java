@@ -4,10 +4,17 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  * This class represents a school class for the GUI, containing the JButton and JLabel associated with it
@@ -15,12 +22,17 @@ import javax.swing.JLabel;
  * @author Kevin
  *
  */
-public class GUIClass {
-	
+public class GUIClass implements ActionListener{
+
+	private static final Font titleFont = new Font("Dialog", Font.BOLD, 20);
+	private static final Font buttonFont = new Font("Dialog", Font.ITALIC, 16);
+	private static final Font listFont = new Font("Dialog", Font.PLAIN, 16);
+
 	private JLabel grade;
 	private JButton button;
 	private String name;
-	
+	private boolean hasGradeWindow;
+
 	/**
 	 * Constructor for the GUIClass class that initializes the two instance variables to the two parameters
 	 */
@@ -40,9 +52,12 @@ public class GUIClass {
 		this.button.setPreferredSize(d);
 		this.button.setBackground(bg);
 		this.button.setForeground(fg);
+		this.button.addActionListener(this);
 		this.name = name;
+		
+		hasGradeWindow = false;
 	}
-	
+
 	/**
 	 * Sets the name of this GUIClass
 	 */
@@ -58,7 +73,7 @@ public class GUIClass {
 	{
 		return this.name;
 	}
-	
+
 	/**
 	 * Sets the text of this GUIClass' JLabel to grade
 	 */
@@ -66,7 +81,7 @@ public class GUIClass {
 	{
 		this.grade.setText("" + grade);
 	}
-	
+
 	/**
 	 * Sets the JButton of this GUIClass to the given parameter
 	 */
@@ -74,7 +89,7 @@ public class GUIClass {
 	{
 		this.button = button;
 	}
-	
+
 	/**
 	 * Sets the dimension of this GUIClass' JButton to d
 	 */
@@ -87,7 +102,7 @@ public class GUIClass {
 		this.button.repaint();
 		this.button.revalidate();
 	}
-	
+
 	/**
 	 * @return a JLabel that represents this GUIClass' grade
 	 */
@@ -95,7 +110,7 @@ public class GUIClass {
 	{
 		return this.grade;
 	}
-	
+
 	/**
 	 * @return the JButton associated with this GUIClass
 	 */
@@ -103,31 +118,109 @@ public class GUIClass {
 	{
 		return this.button;
 	}
-	
+
 	/**
-	 * @param strutLength The length of the strut that separates the JButton and the JLabel
-	 * @return A JPanel holding a singular javax.swing.HorizontalBox component that represents this class object --> can be directly inserted in to mainVertical
+	 * @return A Box holding a singular javax.swing.HorizontalBox component that represents this class object --> can be directly inserted in to mainVertical
 	 */
-	public Box getBox(int strutLength)
+	public Box getBox()
 	{		
 		Box resultant = Box.createHorizontalBox();
 		resultant.add(Box.createHorizontalGlue());
 		resultant.add(button);
-//		resultant.add(Box.createHorizontalStrut(strutLength));
 		resultant.add(Box.createHorizontalGlue());
 		resultant.add(grade);
 		resultant.add(Box.createHorizontalGlue());
 
 		return resultant;
-		
-//		JPanel toReturn = new JPanel();
-//		toReturn.add(resultant);
-//		
-//		return toReturn;
+
+		//		JPanel toReturn = new JPanel();
+		//		toReturn.add(resultant);
+		//		
+		//		return toReturn;
 	}
-	
-	public String getClassName()
+
+	public void openGradeHistory()
 	{
-		return this.button.getText();
+		//TODO: REFRESH
+		if (hasGradeWindow)
+			return;
+		
+		hasGradeWindow = true;
+		
+		JFrame historyFrame = new JFrame();
+		historyFrame.setTitle("Grade History");
+		historyFrame.setSize(600, 600);
+		historyFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+		//Override of "x" button on the JFrame
+		//Sets boolean hasResolutionWindow to false and disposes the JFrame
+		historyFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent){
+				hasGradeWindow = false;
+				historyFrame.dispose();
+			}
+		});
+		
+		JPanel titlePanel = new JPanel();
+		titlePanel.setBackground(Color.red);
+
+		JPanel gradePanel = new JPanel();
+		gradePanel.setBackground(Color.yellow);
+//		gradePanel.setLayout(new BoxLayout(gradePanel, BoxLayout.Y_AXIS));
+//		gradePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+//		gradePanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+		
+		//List and History Component
+		JList<String> list = new JList<String>();
+		list.setFont(listFont);
+		String[] testData = {"Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", "Ch. 54 Test - Right Triangles     50%", };
+		list.setListData(testData);		
+		JScrollPane scrollPane = new JScrollPane(list);
+		gradePanel.add(scrollPane);
+
+		//TODO ADD JLIST OF EVERYTHING
+		
+		
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBackground(Color.green);
+		
+		Box mainVertical = Box.createVerticalBox();
+		mainVertical.add(titlePanel);
+		mainVertical.add(gradePanel);
+		mainVertical.add(buttonPanel);
+		
+		JLabel title = new JLabel("Grade History for " + this.name);
+		title.setBackground(Color.pink);
+		title.setForeground(Color.cyan);
+		title.setAlignmentX(Component.LEFT_ALIGNMENT);
+		title.setFont(titleFont);
+		titlePanel.add(title);
+		
+		JButton refreshButton = new JButton("Refresh");
+		refreshButton.setOpaque(true);
+		refreshButton.setFont(buttonFont);
+		refreshButton.setBackground(Color.white);
+		refreshButton.setForeground(Color.black);
+		refreshButton.setFocusable(false);
+		refreshButton.setAlignmentY(Component.CENTER_ALIGNMENT);
+		refreshButton.addActionListener(this);
+		buttonPanel.add(refreshButton);
+		
+		historyFrame.add(mainVertical);
+		
+		historyFrame.setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		Object src = e.getSource();
+		if (src.equals(this.getButton()))
+		{
+			System.out.println(this.name + " was clicked.");
+			openGradeHistory();
+		}
+
 	}
 }
